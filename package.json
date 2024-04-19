@@ -1,0 +1,30 @@
+{
+  "name": "sappui-react",
+  "version": "1.0.4",
+  "description": "A collection of high-quality, customizable React UI components to simplify and enhance the development of modern, interactive applications.",
+  "main": "dist/index.js",
+  "author": "sapplabs",
+  "license": "ISC",
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "@babel/plugin-syntax-jsx": "^7.24.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-flow": "^7.24.1",
+    "@babel/preset-react": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist --source-maps",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
