@@ -24,7 +24,7 @@ import { ComponentName } from 'sappui-react';
 // Example usage
 function App() {
 return (
-<ComponentName />
+&lt;ComponentName /&gt;
 );
 }
 
