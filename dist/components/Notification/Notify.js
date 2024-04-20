@@ -4,7 +4,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.propTypes = exports["default"] = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactDom = _interopRequireDefault(require("react-dom"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
@@ -54,12 +54,14 @@ function validateProps() {
 }
 function getTransformXY(position) {
   switch (position) {
-    case (PositionTypes.LEFTBOTTOM, PositionTypes.RIGHEBOTTOM):
+    case PositionTypes.LEFTBOTTOM:
+    case PositionTypes.RIGHEBOTTOM:
       return {
         "--transformX": 0,
         "--transformY": "100%"
       };
-    case (PositionTypes.LEFTTOP, PositionTypes.RIGHTTOP):
+    case PositionTypes.LEFTTOP:
+    case PositionTypes.RIGHTTOP:
       return {
         "--transformX": 0,
         "--transformY": "-100%"
@@ -165,7 +167,7 @@ var Notify = function Notify(_ref) {
     onClick: onClose.bind(_this, false)
   }, closeIcon)), portalRoot);
 };
-Notify.propTypes = {
+var propTypes = exports.propTypes = {
   children: _propTypes["default"].node,
   type: _propTypes["default"].oneOf(Object.values(ToastTypes)),
   onClose: _propTypes["default"].func.isRequired,
@@ -182,9 +184,10 @@ Notify.propTypes = {
   contentClass: _propTypes["default"].string,
   closeIcon: _propTypes["default"].node,
   position: _propTypes["default"].string,
-  width: _propTypes["default"].oneOf(_propTypes["default"].string, _propTypes["default"].number),
-  height: _propTypes["default"].oneOf(_propTypes["default"].string, _propTypes["default"].number)
+  width: _propTypes["default"].string || _propTypes["default"].number,
+  height: _propTypes["default"].string || _propTypes["default"].number
 };
+Notify.propTypes = propTypes;
 var _default = exports["default"] = Notify;
 function getColorForType(type) {
   switch (type) {

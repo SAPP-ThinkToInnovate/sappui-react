@@ -39,9 +39,11 @@ function validateProps(props = {}) {
 
 function getTransformXY(position) {
   switch (position) {
-    case (PositionTypes.LEFTBOTTOM, PositionTypes.RIGHEBOTTOM):
+    case PositionTypes.LEFTBOTTOM:
+    case PositionTypes.RIGHEBOTTOM:
       return { "--transformX": 0, "--transformY": "100%" };
-    case (PositionTypes.LEFTTOP, PositionTypes.RIGHTTOP):
+    case PositionTypes.LEFTTOP:
+    case PositionTypes.RIGHTTOP:
       return { "--transformX": 0, "--transformY": "-100%" };
     case PositionTypes.TOPCENTER:
       return { "--transformX": "-50%", "--transformY": "-100%" };
@@ -120,7 +122,7 @@ const Notify = ({
   );
 };
 
-Notify.propTypes = {
+export const propTypes = {
   children: PropTypes.node,
   type: PropTypes.oneOf(Object.values(ToastTypes)),
   onClose: PropTypes.func.isRequired,
@@ -137,9 +139,10 @@ Notify.propTypes = {
   contentClass: PropTypes.string,
   closeIcon: PropTypes.node,
   position: PropTypes.string,
-  width: PropTypes.oneOf(PropTypes.string, PropTypes.number),
-  height: PropTypes.oneOf(PropTypes.string, PropTypes.number),
+  width: PropTypes.string || PropTypes.number,
+  height: PropTypes.string || PropTypes.number,
 };
+Notify.propTypes = propTypes;
 
 export default Notify;
 
