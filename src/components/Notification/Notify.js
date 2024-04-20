@@ -50,7 +50,7 @@ function getTransformXY(position) {
   }
 }
 
-const Notification = ({
+const Notify = ({
   children,
   type = ToastTypes.INFO,
   onClose = () => {},
@@ -67,13 +67,15 @@ const Notification = ({
   show = true,
   closeIcon = <span style={{ color: "gray" }}>Dismiss</span>,
   position = PositionTypes.RIGHTTOP,
+  width = "auto",
+  height = "auto",
 }) => {
   const [portalRoot, setPortalRoot] = useState(null);
 
   useEffect(() => {
     if (!show) return;
     const timer = setTimeout(() => {
-      onClose(false);
+      onClose();
     }, timeout);
     return () => clearTimeout(timer);
   }, [show, onClose, timeout]);
@@ -103,6 +105,8 @@ const Notification = ({
   return ReactDOM.createPortal(
     <Container
       position={position}
+      width={width}
+      height={height}
       style={containerStyle}
       className={containerClass}
     >
@@ -116,7 +120,7 @@ const Notification = ({
   );
 };
 
-Notification.propTypes = {
+Notify.propTypes = {
   children: PropTypes.node,
   type: PropTypes.oneOf(Object.values(ToastTypes)),
   onClose: PropTypes.func.isRequired,
@@ -133,9 +137,11 @@ Notification.propTypes = {
   contentClass: PropTypes.string,
   closeIcon: PropTypes.node,
   position: PropTypes.string,
+  width: PropTypes.oneOf(PropTypes.string, PropTypes.number),
+  height: PropTypes.oneOf(PropTypes.string, PropTypes.number),
 };
 
-export default Notification;
+export default Notify;
 
 function getColorForType(type) {
   switch (type) {
@@ -146,7 +152,7 @@ function getColorForType(type) {
     case ToastTypes.NEUTRAL:
       return "#7b8c9d";
     case ToastTypes.SUCCESS:
-      return "#18c964";
+      return "#009a40";
     case ToastTypes.WARNING:
       return "#fe8b2e";
     default:
@@ -154,16 +160,12 @@ function getColorForType(type) {
   }
 }
 
-const slideDown = (position) => keyframes`
+const slideDown = (transform) => keyframes`
 from {
-    transform: translateY(${
-      getTransformXY(position)["--transformY"]
-    }) translateX(${getTransformXY(position)["--transformX"]});
+    transform: translateY(${transform["--transformY"]}) translateX(${transform["--transformX"]});
   }
   to {
-    transform: translateY(0) translateX(${
-      getTransformXY(position)["--transformX"]
-    });
+    transform: translateY(0) translateX(${transform["--transformX"]});
   }
 `;
 
@@ -197,22 +199,22 @@ const Container = styled.div`
       : "none"};
   display: flex;
   align-items: center;
-  width: auto;
-  height: auto;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   max-width: 95vw !important;
   padding: 5px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  font-family: sans-serif;
+  font-family: Varela round;
   box-sizing: border-box;
-  animation: ${({ position }) => slideDown(position)} 0.05s ease;
+  animation: ${({ position }) => slideDown(getTransformXY(position))} 0.3s ease;
   z-index: 10;
 `;
 
 const Handle = styled.aside`
   position: absolute;
   width: 7px;
-  height: 90%;
+  height: 80%;
   border-radius: 10px;
   background: ${(props) => getColorForType(props.type)};
   color: rgba(32, 116, 208, 1);
@@ -245,7 +247,7 @@ const P = styled.p`
   margin: 0;
   line-height: 1.3rem;
   background: none !important;
-  color: ${(props) => getColorForType(props.type)};
+  color: #1c1919;
 `;
 
 const CloseButton = styled.button`
