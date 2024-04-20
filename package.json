@@ -1,6 +1,6 @@
 {
   "name": "sappui-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A collection of high-quality, customizable React UI components to simplify and enhance the development of modern, interactive applications.",
   "main": "dist/index.js",
   "author": "sapplabs",
